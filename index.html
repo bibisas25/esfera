@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Esfera Cromática</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #1a1a1a;
+            margin: 0;
+        }
+
+        .esfera {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background-color: #3498db;
+            cursor: pointer;
+            transition: background-color 0.5s ease, box-shadow 0.5s ease;
+            
+            /* O segredo do efeito 3D: um gradiente radial */
+            background: radial-gradient(circle at 30% 30%, #5dade2, #2874a6);
+            box-shadow: inset -10px -10px 50px rgba(0,0,0,0.4), 
+                        10px 10px 30px rgba(0,0,0,0.5);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="esfera" id="minhaEsfera"></div>
+
+    <script>
+        const esfera = document.getElementById('minhaEsfera');
+
+        // Função para gerar uma cor hexadecimal aleatória
+        function gerarCorAleatoria() {
+            const letras = '0123456789ABCDEF';
+            let cor = '#';
+            for (let i = 0; i < 6; i++) {
+                cor += letras[Math.floor(Math.random() * 16)];
+            }
+            return cor;
+        }
+
+        // Evento que dispara quando o mouse entra na esfera
+        esfera.addEventListener('mouseenter', () => {
+            const novaCor = gerarCorAleatoria();
+            
+            // Atualiza o fundo com um novo gradiente para manter o efeito 3D
+            esfera.style.background = `radial-gradient(circle at 30% 30%, white 0%, ${novaCor} 20%, black 100%)`;
+            esfera.style.boxShadow = `0 0 50px ${novaCor}`;
+        });
+
+        // Opcional: Volta ao estado original quando o mouse sai
+        esfera.addEventListener('mouseleave', () => {
+            esfera.style.boxShadow = '10px 10px 30px rgba(0,0,0,0.5)';
+        });
+    </script>
+
+</body>
+</html>
